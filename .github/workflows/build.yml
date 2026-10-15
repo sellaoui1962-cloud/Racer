@@ -11,6 +11,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Unzip project
+        run: unzip -o -q "*.zip"
+
       - uses: actions/setup-java@v4
         with:
           distribution: temurin
@@ -24,9 +27,10 @@ jobs:
           gradle-version: 8.9
 
       - name: Build debug APK
+        working-directory: NdrRacer
         run: gradle :app:assembleDebug --no-daemon
 
       - uses: actions/upload-artifact@v4
         with:
           name: NdrRacer-debug-apk
-          path: app/build/outputs/apk/debug/app-debug.apk
+          path: NdrRacer/app/build/outputs/apk/debug/app-debug.apk
